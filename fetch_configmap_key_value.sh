@@ -19,7 +19,7 @@ namespace=$3
 echo "Namespace: $namespace"
 
 # Container Name
-container_name=$deployment_name
+read -p "Enter the container name: " container_name
 echo "Container Name: $container_name"
 
 # Extract Latest ReplicaSet Name
