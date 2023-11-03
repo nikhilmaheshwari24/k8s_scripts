@@ -16,3 +16,8 @@ kubectl get <object> -o custom-columns="Namespace:.metadata.namespace,ApiVersion
 ```bash
 kubectl get pods -o=custom-columns="Namespace":".metadata.namespace","Name":".metadata.name","Node":".spec.nodeName" | tr -s ' ' | tr ' ' ',' > pod_node.csv
 ```
+
+### To get the ingress with associated services and ingressClassName
+```bash
+kubectl get ingress -o custom-columns="Namespace:.metadata.namespace,IngressName:.metadata.name,IngressClassName:.spec.ingressClassName,Associated Services:.spec.rules[*].http.paths[*].backend.service.name" | tr -s ' ' | sed 's/,/;/g' | tr ' ' ',' > ingress_svc.csv
+```
