@@ -21,3 +21,8 @@ kubectl get pods -o=custom-columns="Namespace":".metadata.namespace","Name":".me
 ```bash
 kubectl get ingress -o custom-columns="Namespace:.metadata.namespace,IngressName:.metadata.name,IngressClassName:.spec.ingressClassName,Associated Services:.spec.rules[*].http.paths[*].backend.service.name" | tr -s ' ' | sed 's/,/;/g' | tr ' ' ',' > ingress_svc.csv
 ```
+
+### To get the list of container names associated with a pod
+```bash
+kubectl get pods -o custom-columns="Namespace:.metadata.namespace,Name:.metadata.name,ContainersName:.spec.containers[*].name" -A | tr -s ' ' | tr ' ' ',' | pod_containers.csv
+```
