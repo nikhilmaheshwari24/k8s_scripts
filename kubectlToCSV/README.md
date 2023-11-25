@@ -14,15 +14,23 @@ kubectl get <object> -o custom-columns="Namespace:.metadata.namespace,ApiVersion
 
 ### To get the list of nodes for all pods
 ```bash
-kubectl get pods -o=custom-columns="Namespace":".metadata.namespace","Name":".metadata.name","Node":".spec.nodeName" | tr -s ' ' | tr ' ' ',' > pod_node.csv
+kubectl get pods -o=custom-columns="Namespace":".metadata.namespace","Name":".metadata.name","Node":".spec.nodeName" -A | tr -s ' ' | tr ' ' ',' > pod_node.csv
 ```
 
 ### To get the list of the ingress with associated services and ingressClassName
+
 ```bash
 kubectl get ingress -o custom-columns="Namespace:.metadata.namespace,IngressName:.metadata.name,IngressClassName:.spec.ingressClassName,Associated Services:.spec.rules[*].http.paths[*].backend.service.name" | tr -s ' ' | sed 's/,/;/g' | tr ' ' ',' > ingress_svc.csv
 ```
 
 ### To get the list of container names associated with a pod
+
 ```bash
 kubectl get pods -o custom-columns="Namespace:.metadata.namespace,Name:.metadata.name,ContainersName:.spec.containers[*].name" -A | tr -s ' ' | tr ',' ';' | tr ' ' ',' | tr ';' ' ' > pod_containers.csv
+```
+
+### To get the list of all containers and images for a pod with their owner
+
+```bash
+kubectl get po -o custom-columns="Namespace:.metadata.namespace,Name:.metadata.name,OwnerReferenceKind:.metadata.ownerReferences[0].kind,ContainersNames:.spec.containers[*].name,ContainersImages:.spec.containers[*].image" -A | tr -s ' ' | tr ',' ';' | tr ' ' ',' | tr ';' ' ' > pod_owner_container_images.csv
 ```
