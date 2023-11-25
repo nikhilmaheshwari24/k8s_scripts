@@ -1,10 +1,11 @@
 #!/bin/bash
 
-# Empty file
 `> pod_container_op.csv`
 
+echo "Namespace,DeploymentName,CurrentReplicaSet,PodName,AllContainers,ContainerName,Command Output - env | grep OTEL_JAR_FILE" >> pod_container_op.csv
+
 # List of namespaces
-namespaces=(acropolis aether aphrodite-centre-module argo-rollouts aries athena aura auraapps auth-centre-module cipher control-centre-module eod-center-webapp extensions finance-center-webapp garnet gwathena-resources kubecost luminosrewards notification oms-canary operations-center-app-module operations-management orchestra perseus photonorcus product-centre-module rhea ruby sentor statement support-centre-module tenxp-test-module tethys-resources uszsrecommons weavetest zeus) # Add your desired namespaces here
+namespaces=(ABC DEF GHI JKL MNO PQRS TUV WXYZ) # Add your desired namespaces here
 
 for namespace in ${namespaces[@]}
 do
@@ -53,13 +54,14 @@ do
                         then
                             # echo -en "\nFor container: $container"=
                             # Replace the following command with the desired command to execute
-                            echo -e "-- kubectl exec $pod -c $container -n $namespace -- env | grep OTEL_JAR_FILE | cut -f2 -d '='"
+                            echo -e " -- kubectl exec $pod -c $container -n $namespace -- env | grep OTEL_JAR_FILE | cut -f2 -d '='"
 
                             cmd_output=$(kubectl exec $pod -c $container -n $namespace -- env | grep OTEL_JAR_FILE | cut -f2 -d '=')
 
-                            echo -e "$namespace,$deployment_name,$replicaSet_name,$pod,$container,$cmd_output"
+                            echo -e "$namespace,$deployment_name,$replicaSet_name,$pod,$container,$cmd_output\n"
 
-                            echo -en "$namespace,$deployment_name,$replicaSet_name,$pod,$container,$cmd_output\n" >> pod_container_op.csv
+                            echo -en "$namespace,$deployment_name,$replicaSet_name,$pod,$containers,$container,$cmd_output\n" >> pod_container_op.csv
+
 
                         fi
                     done
