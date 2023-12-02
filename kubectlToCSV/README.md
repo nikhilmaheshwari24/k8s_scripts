@@ -34,3 +34,13 @@ kubectl get pods -o custom-columns="Namespace:.metadata.namespace,Name:.metadata
 ```bash
 kubectl get po -o custom-columns="Namespace:.metadata.namespace,Name:.metadata.name,OwnerReferenceKind:.metadata.ownerReferences[0].kind,ContainersNames:.spec.containers[*].name,ContainersImages:.spec.containers[*].image" -A | tr -s ' ' | tr ',' ';' | tr ' ' ',' | tr ';' ' ' > pod_owner_container_images.csv
 ```
+
+### To get the requiredDuringSchedulingIgnoredDuringExecution affinity for deployment
+```bash
+kubectl get deployment -o custom-columns="Namespace:.metadata.namespace,Name:.metadata.name,requiredDuringSchedulingIgnoredDuringExecutionKeys:.spec.template.spec.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*].key,requiredDuringSchedulingIgnoredDuringExecutionOperator:.spec.template.spec.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*].operator,requiredDuringSchedulingIgnoredDuringExecutionValues:.spec.template.spec.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*].values" -A | tr -s ' ' | tr ',' ';' | tr ' ' ',' | tr ';' ' ' > deployment_affinity.csv
+```
+
+### To get the preferredDuringSchedulingIgnoredDuringExecution affinity for deployment
+```bash
+kubectl get deployment -o custom-columns="Namespace:.metadata.namespace,Name:.metadata.name,preferredDuringSchedulingIgnoredDuringExecutionKeys:.spec.template.spec.affinity.nodeAffinity.preferredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*].key,preferredDuringSchedulingIgnoredDuringExecutionOperator:.spec.template.spec.affinity.nodeAffinity.preferredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*].operator,preferredDuringSchedulingIgnoredDuringExecutionValues:.spec.template.spec.affinity.nodeAffinity.preferredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*].values" -A | tr -s ' ' | tr ',' ';' | tr ' ' ',' | tr ';' ' ' > deployment_affinity.csv
+```
