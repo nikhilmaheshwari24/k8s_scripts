@@ -13,7 +13,7 @@ kubectl get <object> -o custom-columns="Namespace:.metadata.namespace,ApiVersion
 
 ### pods with the scheduled nodeName
 ```bash
-kubectl get pods -o=custom-columns="Namespace":.metadata.namespace,Name:.metadata.name,Node:.spec.nodeName -A | tr -s ' ' | tr ' ' ',' > pod_node.csv
+kubectl get pods -o=custom-columns="Namespace:.metadata.namespace,Name:.metadata.name,Node:.spec.nodeName" -A | tr -s ' ' | tr ' ' ',' > pod_node.csv
 ```
 
 ### ingresses with associated services and ingressClassName
@@ -42,4 +42,9 @@ kubectl get deployment -o custom-columns="Namespace:.metadata.namespace,Name:.me
 ### preferredDuringSchedulingIgnoredDuringExecution affinity for all deployments
 ```bash
 kubectl get deployment -o custom-columns="Namespace:.metadata.namespace,Name:.metadata.name,preferredDuringSchedulingIgnoredDuringExecutionKeys:.spec.template.spec.affinity.nodeAffinity.preferredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*].key,preferredDuringSchedulingIgnoredDuringExecutionOperator:.spec.template.spec.affinity.nodeAffinity.preferredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*].operator,preferredDuringSchedulingIgnoredDuringExecutionValues:.spec.template.spec.affinity.nodeAffinity.preferredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[*].matchExpressions[*].values" -A | tr -s ' ' | tr ',' ';' | tr ' ' ',' | tr ';' ' ' > deployment_affinity.csv
+```
+
+### containers requests and limits for all deployments
+```bash
+kubectl get deployment -o custom-columns="Namespace:.metadata.namespace,Name:.metadata.name,ContainersName:.spec.template.spec.containers[*].name,ContainerRequests:.spec.template.spec.containers[*].resources.requests,ContainerLimits:.spec.template.spec.containers[*].resources.limits -A"
 ```
