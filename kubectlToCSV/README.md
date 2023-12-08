@@ -48,3 +48,12 @@ kubectl get deployment -o custom-columns="Namespace:.metadata.namespace,Name:.me
 ```bash
 kubectl get deployment -o custom-columns="Namespace:.metadata.namespace,Name:.metadata.name,ContainersName:.spec.template.spec.containers[*].name,ContainerRequests:.spec.template.spec.containers[*].resources.requests,ContainerLimits:.spec.template.spec.containers[*].resources.limits -A"
 ```
+
+### requiredDuringSchedulingIgnoredDuringExecution podAntiAffinity for all deployments
+```bash
+kubectl get deployment -o custom-columns="Namespace:.metadata.namespace,Name:.metadata.name,requiredDuringSchedulingIgnoredDuringExecutionKeys:.spec.template.spec.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[*].labelSelector.matchExpressions[*].key,requiredDuringSchedulingIgnoredDuringExecutionOperator:.spec.template.spec.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[*].labelSelector.matchExpressions[*].operator,requiredDuringSchedulingIgnoredDuringExecutionValues:.spec.template.spec.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[*].labelSelector.matchExpressions[*].values" -A | tr -s ' ' | tr ',' ';' | tr ' ' ',' | tr ';' ' ' > deployment_podAntiAffinity.csv
+```
+
+### preferredDuringSchedulingIgnoredDuringExecution podAntiAffinity for all deployments
+```bash
+kubectl get deployment -o custom-columns="Namespace:.metadata.namespace,Name:.metadata.name,preferredDuringSchedulingIgnoredDuringExecutionKeys:.spec.template.spec.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution.labelSelector.matchExpressions[*].key,preferredDuringSchedulingIgnoredDuringExecutionOperator:.spec.template.spec.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution.labelSelector.matchExpressions[*].operator,preferredDuringSchedulingIgnoredDuringExecutionValues:.spec.template.spec.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution.labelSelector.matchExpressions[*].values" -A | tr -s ' ' | tr ',' ';' | tr ' ' ',' | tr ';' ' ' > deployment_podAntiAffinity.csv
