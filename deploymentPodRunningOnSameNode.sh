@@ -6,8 +6,14 @@
 # Add header to the CSV file
 echo "Namespace,DeploymentName,NodeName" >> deploymentPodRunningOnSameNode.csv
 
-# List of namespaces
-namespaces=(ABC DEF GHI JKL MNO PQRS TUV WXYZ)
+# Declare an array
+declare -a namespaces
+
+# Assign output to the array
+read -a namespaces < <(kubectl get namespaces -o=jsonpath='{.items[*].metadata.name}{" "}') # The "< <()" construction is used in Bash to redirect the output of a command into a loop or read it line by line and then assign it to a variable or an array.
+
+# # Custom List of namespaces
+# namespaces=(ABC DEF GHI JKL MNO PQRS TUV WXYZ)
 
 # Loop through each namespace
 for namespace in "${namespaces[@]}"
