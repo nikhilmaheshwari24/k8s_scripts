@@ -1,16 +1,24 @@
 #!/bin/bash
 
+# Create or clear the CSV file
 `> pod_container_op.csv`
 
+# Add header to the CSV file
 echo "Namespace,DeploymentName,CurrentReplicaSet,PodName,AllContainers,ContainerName,Command Output - env | grep OTEL_JAR_FILE" >> pod_container_op.csv
 
-# List of namespaces
-namespaces=(ABC DEF GHI JKL MNO PQRS TUV WXYZ) # Add your desired namespaces here
+# Declare an array
+declare -a namespaces
+
+# Assign output to the array
+read -a namespaces < <(kubectl get namespaces -o=jsonpath='{.items[*].metadata.name}{" "}') # The "< <()" construction is used in Bash to redirect the output of a command into a loop or read it line by line and then assign it to a variable or an array.
+
+# Custom List of namespaces
+# namespaces=(ABC DEF GHI JKL MNO PQRS TUV WXYZ) # Add your desired namespaces here
 
 for namespace in ${namespaces[@]}
 do
 
-    # echo -n "Namespace: $namespace"
+    echo "Namespace: $namespace"
 
     # Get all deployment names
     deployments=$(kubectl get deployments -o=jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' -n $namespace)

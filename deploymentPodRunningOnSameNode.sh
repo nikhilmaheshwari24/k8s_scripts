@@ -13,7 +13,7 @@ declare -a namespaces
 read -a namespaces < <(kubectl get namespaces -o=jsonpath='{.items[*].metadata.name}{" "}') # The "< <()" construction is used in Bash to redirect the output of a command into a loop or read it line by line and then assign it to a variable or an array.
 
 # # Custom List of namespaces
-# namespaces=(ABC DEF GHI JKL MNO PQRS TUV WXYZ)
+# namespaces=(ABC DEF GHI JKL MNO PQRS TUV WXYZ) # Add your desired namespaces here
 
 # Loop through each namespace
 for namespace in "${namespaces[@]}"
