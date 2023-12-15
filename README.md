@@ -7,7 +7,7 @@ Scripts related to Kubernetes
 
 ## deploymentContainerCommandOutput.sh
 
-*[deploymentContainerCommandOutput]* iterates through all deployments within specified namespaces or across all namespaces. It executes a specific command for each deployment, gathering information or performing an action across all or custom namespaces and their deployments.
+*[deploymentContainerCommandOutput]* iterates through all deployments within specified namespaces or across all namespaces. It executes a specific command for each deployment (provision to exclude the sidecar or any other common container), gathering information or performing an action across all or custom namespaces and their deployments. Record outputs in the **deploymentContainerCommandOutput.csv**
 
 [deploymentPodRunningOnSameNode]: https://github.com/nikhilmaheshwari24/k8s_scripts/blob/master/deploymentPodRunningOnSameNode.sh
 [deploymentContainerCommandOutput]: https://github.com/nikhilmaheshwari24/k8s_scripts/blob/master/deploymentContainerCommandOutput.sh

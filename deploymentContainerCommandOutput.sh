@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Create or clear the CSV file
-`> pod_container_op.csv`
+`> deploymentContainerCommandOutput.csv`
 
 # Add header to the CSV file
-echo "Namespace,DeploymentName,CurrentReplicaSet,PodName,AllContainers,ContainerName,Command Output - env | grep OTEL_JAR_FILE" >> pod_container_op.csv
+echo "Namespace,DeploymentName,CurrentReplicaSet,PodName,AllContainers,ContainerName,Command Output - env | grep OTEL_JAR_FILE" >> deploymentContainerCommandOutput.csv
 
 # Declare an array
 declare -a namespaces
@@ -68,7 +68,7 @@ do
 
                             echo -e "$namespace,$deployment_name,$replicaSet_name,$pod,$container,$cmd_output\n"
 
-                            echo -en "$namespace,$deployment_name,$replicaSet_name,$pod,$containers,$container,$cmd_output\n" >> pod_container_op.csv
+                            echo -en "$namespace,$deployment_name,$replicaSet_name,$pod,$containers,$container,$cmd_output\n" >> deploymentContainerCommandOutput.csv
 
 
                         fi
