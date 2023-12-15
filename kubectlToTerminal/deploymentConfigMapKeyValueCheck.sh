@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Command
+# bash deploymentConfigMapKeyValueCheck.sh <deployment_name> <search_key> <namespace>
+
 # Check if the number of arguments is less than 3
 if [ "$#" -ne 3 ]; then
     echo "Usage: bash script_name deployment_name search_key namespace"

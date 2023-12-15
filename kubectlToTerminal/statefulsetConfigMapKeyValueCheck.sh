@@ -1,7 +1,10 @@
 #!/bin/bash
 
+# Command
+# bash statefulsetConfigMapKeyValueCheck.sh <statefulset_name> <search_key> <namespace>
+
 if [ "$#" -ne 3 ]; then
-    echo "Usage: bash script_name deployment_or_statefulset_name search_key namespace"
+    echo "Usage: bash script_name statefulset_name search_key namespace"
     exit 1
 fi
 
