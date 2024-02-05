@@ -10,6 +10,11 @@ kubectl get <object> -o custom-columns="Namespace:.metadata.namespace,ApiVersion
 
 ## Pod
 
+#### to get the annotation value
+```bash
+kubectl get po -o custom-columns="Namespace:.metadata.namespace,Name:.metadata.name,Annotation - <AnnotationName>:.metadata.annotations.<AnnotationKey>"
+```
+
 #### to get the associated images
 
 ```bash
